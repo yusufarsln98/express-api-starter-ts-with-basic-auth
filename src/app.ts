@@ -3,9 +3,10 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 
-import * as middlewares from './middlewares';
 import api from './api';
 import MessageResponse from './interfaces/MessageResponse';
+import notFound from './middlewares/notFound';
+import errorHandler from './middlewares/errorHandler';
 
 require('dotenv').config();
 
@@ -24,7 +25,9 @@ app.get<{}, MessageResponse>('/', (req, res) => {
 
 app.use('/api/v1', api);
 
-app.use(middlewares.notFound);
-app.use(middlewares.errorHandler);
+// middleware uses
+// next function will execute the next middleware in the stack
+app.use(notFound);
+app.use(errorHandler);
 
 export default app;

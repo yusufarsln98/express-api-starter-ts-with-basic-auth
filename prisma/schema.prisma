@@ -17,6 +17,6 @@ model User {
   password  String
   token     String?
   name  String
-  // roles: admin, user, vendingMachine - ENUMS are not supported by Prisma
+  // role: admin, user, vendingMachine - Lists and ENUMS are not supported by Prisma with SQLite
   role  String @default("user") 
 }

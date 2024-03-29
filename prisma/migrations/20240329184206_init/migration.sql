@@ -2,9 +2,10 @@
 CREATE TABLE "User" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "username" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "token" TEXT
+    "token" TEXT,
+    "name" TEXT NOT NULL,
+    "role" TEXT NOT NULL DEFAULT 'user'
 );
 
 -- CreateIndex

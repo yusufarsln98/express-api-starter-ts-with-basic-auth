@@ -5,12 +5,12 @@ import { generateJwt } from '../../utils/generateJwt';
 import { hashPassword } from '../../utils/hashPassword';
 import User, { LoginResponse, Role } from '../../interfaces/User';
 
-const router = express.Router();
+const signUpRouter = express.Router();
 
 type SignUpRequest = Pick<User, 'username' | 'password' | 'name' | 'role'>;
 type SignUpResponse = LoginResponse;
 
-router.post<{}, SignUpResponse | ErrorResponse, SignUpRequest>(
+signUpRouter.post<{}, SignUpResponse | ErrorResponse, SignUpRequest>(
   '/',
   async (req, res, next) => {
     const { username, password, name, role } = req.body;
@@ -57,4 +57,4 @@ router.post<{}, SignUpResponse | ErrorResponse, SignUpRequest>(
   },
 );
 
-export default router;
+export default signUpRouter;

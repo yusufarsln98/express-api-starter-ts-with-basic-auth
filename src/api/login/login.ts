@@ -5,7 +5,7 @@ import { generateJwt } from '../../utils/generateJwt';
 import bcrypt from 'bcryptjs';
 import User, { LoginResponse, Role } from '../../interfaces/User';
 
-const router = express.Router();
+const loginRouter = express.Router();
 
 type LoginRequest = Pick<User, 'username' | 'password'>;
 
@@ -13,7 +13,7 @@ const invalidUsernameOrPassword = (res: express.Response) => {
   return res.status(401).json({ message: 'Invalid username or password' });
 };
 
-router.post<{}, LoginResponse | ErrorResponse, LoginRequest>(
+loginRouter.post<{}, LoginResponse | ErrorResponse, LoginRequest>(
   '/',
   async (req, res, next) => {
     const { username, password } = req.body;
@@ -58,4 +58,4 @@ router.post<{}, LoginResponse | ErrorResponse, LoginRequest>(
   },
 );
 
-export default router;
+export default loginRouter;

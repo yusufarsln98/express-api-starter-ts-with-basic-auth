@@ -9,17 +9,17 @@ import usersRouter from './users/users';
 import signUpRouter from './signUp/signUp';
 import loginRouter from './login/login';
 
-const router = express.Router();
+const api = express.Router();
 
-router.get<{}, MessageResponse>('/', (req, res) => {
+api.get<{}, MessageResponse>('/', (req, res) => {
   res.json({
     message: 'API - 👋🌎🌍🌏',
   });
 });
 
-// other routes will be added here to the router
-router.use('/users', auth, verifyRole(['admin']), usersRouter);
-router.use('/signUp', signUpRouter);
-router.use('/login', loginRouter);
+// other routes will be added here to the api
+api.use('/users', auth, verifyRole(['admin']), usersRouter);
+api.use('/signUp', signUpRouter);
+api.use('/login', loginRouter);
 
-export default router;
+export default api;

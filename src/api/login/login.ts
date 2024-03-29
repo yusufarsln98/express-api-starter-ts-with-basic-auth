@@ -3,7 +3,7 @@ import { prisma } from '../../prismaClient';
 import ErrorResponse from '../../interfaces/ErrorResponse';
 import { generateJwt } from '../../utils/generateJwt';
 import bcrypt from 'bcryptjs';
-import User, { LoginResponse } from '../../interfaces/User';
+import User, { LoginResponse, Role } from '../../interfaces/User';
 
 const router = express.Router();
 
@@ -33,7 +33,14 @@ router.post<{}, LoginResponse | ErrorResponse, LoginRequest>(
         return invalidUsernameOrPassword(res);
       }
 
-      const token = generateJwt(user);
+      // cast user.role to Role, if it's not a valid Role, it will throw an error
+      const role = user.role as Role;
+      if (!role) {
+        return res.status(500).json({ message: 'User role is not defined' });
+      }
+
+      // Generate a JWT token
+      const token = generateJwt({ ...user, role });
 
       await prisma.user.update({ where: { id: user.id }, data: { token } });
 
